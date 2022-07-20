@@ -10,8 +10,7 @@ with gzip.open('csv_example.csv.gz', 'rb') as f:                                
         time = (re.search(r'[0-9]{2}:[0-9]{2}:[0-9]{2}', str(line))).group(0)                                           # Рега на значение времени
         logIn = (re.search(r'[a-z,0-9]{15}', str(line))).group(0)                                                       # Рега на значение то ли логина то ли операции
         prochee = re.sub(r' ', '|', ((re.search(r'esia.gosuslugi.ru_https_access:.*', str(line))).group(0)))            # Рега на значение меняющейся тушки с ресабом на разделение
-        procheeReSubN = re.sub(r'\\n','', prochee)
-        Test.write(mount + "|" + day + "|" + time + "|" + logIn + "|" + procheeReSubN + '\n')                                 # Запись в нужном формате с переводом строки
+        Test.write(mount + "|" + day + "|" + time + "|" + logIn + "|" + prochee + '\n')                                 # Запись в нужном формате с переводом строки
 Test.close()
 print('Успешно!')
 
@@ -27,6 +26,7 @@ print('Успешно!')
         # HTTPver = (re.search(r'HTTP.*?\s', str(line))).group(0)
         # responceTime = (re.search(r'upst.+?[0-9].+?[0-9].+|upst.+?[0-9].+?[0-9].+?\n|upst.+?\n|upst.+?-', str(line))).group(0)
         # if re.match(r'\\n', responceTime):
+        #procheeReSubN = re.sub(r'\\n','', prochee)
 
 # Предыдущий принт (умерший, так как реги на prochee не находит иногда значение)
         # Test.write(mount + "|" + day + "|" + time + "|" + logIn + "|" + serName + "|" + timeStamp + "|" +
