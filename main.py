@@ -1,7 +1,7 @@
 import gzip
 import re
 
-Test = open("TestFileWriter", "w", encoding="utf-8")                                                                    # Создание и открытие файла в нужном формате и с нужной кодировкой
+Test = open("TestFileWriter.csv", "w", encoding="utf-8")                                                                # Создание и открытие файла в нужном формате и с нужной кодировкой
 with gzip.open('csv_example.csv.gz', 'rb') as f:                                                                        # Открытие архива
     for i, line in enumerate(f):                                                                                        # Цикл по номерам линий в документе
         print(line)                                                                                                     # Принт для понятия времени текущей линии парсера
@@ -10,7 +10,8 @@ with gzip.open('csv_example.csv.gz', 'rb') as f:                                
         time = (re.search(r'[0-9]{2}:[0-9]{2}:[0-9]{2}', str(line))).group(0)                                           # Рега на значение времени
         logIn = (re.search(r'[a-z,0-9]{15}', str(line))).group(0)                                                       # Рега на значение то ли логина то ли операции
         prochee = re.sub(r' ', '|', ((re.search(r'esia.gosuslugi.ru_https_access:.*', str(line))).group(0)))            # Рега на значение меняющейся тушки с ресабом на разделение
-        Test.write(mount + "|" + day + "|" + time + "|" + logIn + "|" + prochee + '\n')                                 # Запись в нужном формате с переводом строки
+        procheeReSubN = re.sub(r'\\n','', prochee)
+        Test.write(mount + "|" + day + "|" + time + "|" + logIn + "|" + procheeReSubN + '\n')                                 # Запись в нужном формате с переводом строки
 Test.close()
 print('Успешно!')
 
